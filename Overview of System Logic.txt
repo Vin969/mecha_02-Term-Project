@@ -1,0 +1,61 @@
+What should system do:
+
+- Each of these components are divided up by the tasks in the scheduler. For example, the System, Linear Actuator/Flywheel, and Sensor are all separate tasks (3 total).
+- Because the flywheel and linear actuator are relatively simple, they can be combined into one task.
+
+-------------------------------------------------------------------------------------------
+
+Start:
+	System:
+		- Turn 180 Degrees
+	Linear Actuator/Flywheel:
+		Linear Actuator:
+			- Idle
+		Flywheel:
+			- Off
+	Sensor:
+		- Idle
+		
+During 5 seconds:
+	System:
+		- Idle
+	Linear Actuator/Flywheel:
+		Linear Actuator:
+			- Push bullet as far as it can without touching flywheel
+		Flywheel:
+			- Off
+	Sensor:
+		- Initialized
+		- Getting data
+		
+Right Before Turning:
+	System:
+		- Convert degree to meaningful setpoint
+	Linear Actuator/Flywheel:
+		Linear Actuator:
+			- Idle
+		Flywheel:
+			- Turned on, to rev it up before shooting
+	Sensor:
+		- Send data (float) to system
+		
+After finish turning:
+	System:
+		- Stop Turning
+		- Send indication to linear actuator to begin shooting (boolean)
+	Linear Actuator/Flywheel:
+		Linear Actuator:
+			- Wait for signal from system
+			- extend fully once recived signal
+		Flywheel:
+			- Turned on (from before)
+	Sensor:
+		- Idle
+	
+-----------------------------------------------------------------------------------------
+
+
+
+
+
+
