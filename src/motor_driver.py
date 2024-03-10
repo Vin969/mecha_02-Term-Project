@@ -68,12 +68,12 @@ class MotorDriver:
 ## passed into the motor driver class method. This code would need to be used in a separate main file
 ## to properly define the parameters outside of this file that is loaded into the microcontroller.
 
-if __name__ == "__main__":
-    en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
-    a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
-    another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
-    m_timer = pyb.Timer(3, freq=5000)
-    ch1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
-    ch2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
-    moe = MotorDriver(en_pin,a_pin,another_pin,m_timer,ch1,ch2)
-    moe.set_duty_cycle(-100)
+# if __name__ == "__main__":
+#     en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
+#     a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
+#     another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
+#     m_timer = pyb.Timer(3, freq=5000)
+#     ch1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
+#     ch2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
+#     moe = MotorDriver(en_pin,a_pin,another_pin,m_timer,ch1,ch2)
+#     moe.set_duty_cycle(100)

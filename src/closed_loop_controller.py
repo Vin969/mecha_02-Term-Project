@@ -71,7 +71,7 @@ class control:
         pwm = self.gain*(self.setpoint - actual)
         return pwm
     
-    def cl_loop_response(self, motor, encoder, controller, gain):
+    def cl_loop_response(self, motor, encoder, controller, gain, setpoint):
         """!
         Function that runs the step reponse for the motor. This function
         implements a finite-state-machine and class variables to keep track of 
@@ -85,6 +85,7 @@ class control:
         try:          
             # State 0: Step-response
             if self.state == 0:
+                controller.set_setpoint(setpoint)
                 # Continously runs the step response with a delay of 10 ms ...
                 actual = encoder.read()
                 duty_cycle = controller.run(actual)
@@ -138,10 +139,11 @@ class control:
                 # Sets Kp value
 #                 controller.set_Kp(gain)
                 
-                # Zeros outs necessary values and parameters for next run 
-                # through
+                # Zeros outs necessary values and parameters for next run through 
+                return True 
+                
                 encoder.zero()
-                self.state = 4
+                self.state = 0
                 self.print_counter = 0
                 self.steady_counter = 0
                 
@@ -205,7 +207,7 @@ if __name__ == "__main__":
     encoder.zero()
     
     while True:
-        controller.cl_loop_response(motor, encoder, controller)
+        controller.cl_loop_response(motor, encoder, controller, 1.2, 65500)
     
     # Prompts user to input a controller gain
     # Initializes variables to be used in the while loop

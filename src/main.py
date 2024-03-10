@@ -1,79 +1,162 @@
-from machine import Pin, I2C
-from mlx_cam import MLX_Cam
-import utime as time
-import math
+"""!
+@file basic_tasks.py
+    This file contains a demonstration program that runs some tasks, an
+    inter-task shared variable, and a queue. The tasks don't really @b do
+    anything; the example just shows how these elements are created and run.
+
+@author JR Ridgely
+@date   2021-Dec-15 JRR Created from the remains of previous example
+@copyright (c) 2015-2021 by JR Ridgely and released under the GNU
+    Public License, Version 2. 
+"""
+
 import gc
+import pyb
+import cotask
+import task_share
+import encoder_reader as enc
+import motor_driver as moe
+import closed_loop_controller as closed
+import thermal_camera as therm
 
-class thermal_cam:
-    """! 
-    This class implements the necessary code to track and send MLX90640 Thermal
-    Infrared Camera information to the driving motors
+
+def actuator_task(shares):
+    """!
+    Task which puts things into a share and a queue.
+    @param shares A list holding the share and queue used by this task
     """
-    def __init__(self):
-        """! 
-        Initializes the thermal camera port and state values.
-        """
-        i2c_bus = I2C(1)
-        
-        # Create the camera object and set it up in default mode
-        self.camera = MLX_Cam(i2c_bus)
-        self.camera._camera.refresh_rate = 60.0
-        
-        self.state = 0
-        self.image = None
-        
-    def find_deg(self, col):
-        """! 
-        Finding the degrees in which the panning axis needs to rotate realtive
-        to the camera
-        @param col column in the thermal image array with the highest average temp
-        @returns degrees the panning axis needs to turn to aim at target
-        """
-        tick = 55/32
-        turn = 0
-        deg = 0
-        if col < 15:
-            turn = (15 - col) + 1
-            deg = -1 * turn * tick
-        elif col > 16:
-            turn = (col - 16) + 1
-            deg = turn * tick
-        else:
-            deg = 0
-         
-        x = 95.5 
-        d = 191
+    # Get references to the share and queue which have been passed to this task
+    my_share, my_queue = shares
 
-        ac_deg = math.atan((x*math.tan(math.radians(deg)))/d)
-        return math.degrees(ac_deg)
+    # Stuff copied over from last lab below
+    # Code needed to initalize motor
+    en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
+    a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
+    another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
+    m_timer = pyb.Timer(3, freq=5000)
+    chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
+    chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
+    
+    actuator = moe.MotorDriver(en_pin,a_pin,another_pin,m_timer,chm1,chm2)
 
-    def test_MLX_cam(self):
-        """!
-        Function that runs gets the position of the target
-        @returns number of degrees turret is supposed rotate to aim at target
-        """
+
+def turret_task(shares):
+    """!
+    Task which takes things out of a queue and share and displays them.
+    @param shares A tuple of a share and queue from which this task gets data
+    """
+    # Get references to the share and queue which have been passed to this task
+    the_share, the_queue = shares
+    
+    # Stuff copied over from last lab below
+    # Code needed to initalize motor
+    en_pin = pyb.Pin(pyb.Pin.board.PC1, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
+    a_pin = pyb.Pin(pyb.Pin.board.PA0, pyb.Pin.OUT_PP)
+    another_pin = pyb.Pin(pyb.Pin.board.PA1, pyb.Pin.OUT_PP)
+    m_timer = pyb.Timer(5, freq=5000)
+    chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
+    chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
+    
+    # Motor Initialization done through imported MotorDriver class
+    turret = moe.MotorDriver(en_pin,a_pin,another_pin,m_timer,chm1,chm2)
+    
+    # Code needed to initialize encoder. Set 'tim' to the correct timer
+    # for the pins being used.
+    tim = 4
+    timer = pyb.Timer(tim, prescaler = 0, period = 65535)
+    
+    # Depending on the timer used, the code will autometically
+    # initalize the correct channel and pins. For example, if the timer
+    # used is '4', then the B6/B7 pins will be initialized. In this test code,
+    # C6/C7 is used.
+    if tim == 4:
+        ch1 = timer.channel(1,pyb.Timer.ENC_A,pin = pyb.Pin.board.PB6)
+        ch2 = timer.channel(2, pyb.Timer.ENC_B,pin = pyb.Pin.board.PB7)
+    
+    elif tim == 8:
+        ch1 = timer.channel(1,pyb.Timer.ENC_A,pin = pyb.Pin.board.PC6)
+        ch2 = timer.channel(2, pyb.Timer.ENC_B,pin = pyb.Pin.board.PC7)
+    else:
+        print("invalid timer")
+    
+    # Initializes Encoder (Turret)
+    tur_enc = enc.encoder(timer,ch1,ch2)          
+    
+    # Initializes Motor Controller (Turret)
+    tur_con = closed.control()
+    
+    while True:
+        # Show everything currently in the queue and the value in the share
+        print(f"Share: {the_share.get ()}, Queue: ", end='')
+        while q0.any():
+            print(f"{the_queue.get ()} ", end='')
+        print('')
+
+        yield 0
         
-        if self.state == 0:
-            if self.image is None:
-                self.image = self.camera.get_image_nonblocking()
-                time.sleep_ms(30)
-            elif self.image is not None:  
-                self.state += 1
-        elif self.state == 1 :           
-            col_shoot = self.camera.get_csv(self.image, limits=(0, 99))
-            print("Column with highest average:", col_shoot)
-            deg_shoot = therm.find_deg(col_shoot)
-            print("Degree to shoot:", deg_shoot, "degrees")
-            
-            print(f"Memory: {gc.mem_free()} B free")
-            time.sleep_ms(30)
-            self.state = 0
-            self.image = None
+def sensor_task(shares):
+    """!
+    Task which takes things out of a queue and share and displays them.
+    @param shares A tuple of a share and queue from which this task gets data
+    """
+    # Get references to the share and queue which have been passed to this task
+    the_share, the_queue = shares
+    
+    # Stuff copied over from last lab below
+    # Code needed to initalize motor
+    sensor = therm.thermal_cam()
+    
+    
+    while True:
+        # Show everything currently in the queue and the value in the share
+        print(f"Share: {the_share.get ()}, Queue: ", end='')
+        while q0.any():
+            print(f"{the_queue.get ()} ", end='')
+        print('')
 
+        yield 0
+
+
+# This code creates a share, a queue, and two tasks, then starts the tasks. The
+# tasks run until somebody presses ENTER, at which time the scheduler stops and
+# printouts show diagnostic information about the tasks, share, and queue.
 if __name__ == "__main__":
-    therm = thermal_cam()
+    print("Testing ME405 stuff in cotask.py and task_share.py\r\n"
+          "Press Ctrl-C to stop and show diagnostics.")
+
+    # Create a share and a queue to test function and diagnostic printouts
+    share0 = task_share.Share('h', thread_protect=False, name="Share 0")
+    q0 = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
+                          name="Queue 0")
+
+    # Create the tasks. If trace is enabled for any task, memory will be
+    # allocated for state transition tracing, and the application will run out
+    # of memory after a while and quit. Therefore, use tracing only for 
+    # debugging and set trace to False when it's not needed
+    task1 = cotask.Task(sensor_task, name="Sensor", priority=1, period=50,
+                        profile=True, trace=False, shares=(share0, q0))
+    task2 = cotask.Task(turret_task, name="Turret", priority=2, period=80,
+                        profile=True, trace=False, shares=(share0, q0))
+    task3 = cotask.Task(actuator_task, name="Actuator", priority=3, period=80,
+                        profile=True, trace=False, shares=(share0, q0))
+    
+    cotask.task_list.append(task1)
+    cotask.task_list.append(task2)
+    cotask.task_list.append(task3)
+
+    # Run the memory garbage collector to ensure memory is as defragmented as
+    # possible before the real-time scheduler is started
+    gc.collect()
+
+    # Run the scheduler with the chosen scheduling algorithm. Quit if ^C pressed
     while True:
         try:
-            therm.test_MLX_cam()
+            cotask.task_list.pri_sched()
         except KeyboardInterrupt:
             break
+
+    # Print a table of task data and a table of shared information data
+    print('\n' + str (cotask.task_list))
+    print(task_share.show_all())
+    print(task1.get_trace())
+    print('')
