@@ -14,10 +14,9 @@ import gc
 import pyb
 import cotask
 import task_share
-import encoder_reader as enc
-import motor_driver as moe
-import closed_loop_controller as closed
 import thermal_camera as therm
+import turret_driver as tur
+import actuator_flywheel as act
 
 
 def actuator_task(shares):
@@ -27,17 +26,13 @@ def actuator_task(shares):
     """
     # Get references to the share and queue which have been passed to this task
     my_share, my_queue = shares
-
-    # Stuff copied over from last lab below
-    # Code needed to initalize motor
-    en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
-    a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
-    another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
-    m_timer = pyb.Timer(3, freq=5000)
-    chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
-    chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
     
-    actuator = moe.MotorDriver(en_pin,a_pin,another_pin,m_timer,chm1,chm2)
+    actuator = act.actuator_driver()
+    
+    while True:
+        actuator.act_test(my_share)
+        
+        yield 0
 
 
 def turret_task(shares):
@@ -48,50 +43,10 @@ def turret_task(shares):
     # Get references to the share and queue which have been passed to this task
     the_share, the_queue = shares
     
-    # Stuff copied over from last lab below
-    # Code needed to initalize motor
-    en_pin = pyb.Pin(pyb.Pin.board.PC1, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
-    a_pin = pyb.Pin(pyb.Pin.board.PA0, pyb.Pin.OUT_PP)
-    another_pin = pyb.Pin(pyb.Pin.board.PA1, pyb.Pin.OUT_PP)
-    m_timer = pyb.Timer(5, freq=5000)
-    chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
-    chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
-    
-    # Motor Initialization done through imported MotorDriver class
-    turret = moe.MotorDriver(en_pin,a_pin,another_pin,m_timer,chm1,chm2)
-    
-    # Code needed to initialize encoder. Set 'tim' to the correct timer
-    # for the pins being used.
-    tim = 4
-    timer = pyb.Timer(tim, prescaler = 0, period = 65535)
-    
-    # Depending on the timer used, the code will autometically
-    # initalize the correct channel and pins. For example, if the timer
-    # used is '4', then the B6/B7 pins will be initialized. In this test code,
-    # C6/C7 is used.
-    if tim == 4:
-        ch1 = timer.channel(1,pyb.Timer.ENC_A,pin = pyb.Pin.board.PB6)
-        ch2 = timer.channel(2, pyb.Timer.ENC_B,pin = pyb.Pin.board.PB7)
-    
-    elif tim == 8:
-        ch1 = timer.channel(1,pyb.Timer.ENC_A,pin = pyb.Pin.board.PC6)
-        ch2 = timer.channel(2, pyb.Timer.ENC_B,pin = pyb.Pin.board.PC7)
-    else:
-        print("invalid timer")
-    
-    # Initializes Encoder (Turret)
-    tur_enc = enc.encoder(timer,ch1,ch2)          
-    
-    # Initializes Motor Controller (Turret)
-    tur_con = closed.control()
+    turret = tur.turret_driver()
     
     while True:
-        # Show everything currently in the queue and the value in the share
-        print(f"Share: {the_share.get ()}, Queue: ", end='')
-        while q0.any():
-            print(f"{the_queue.get ()} ", end='')
-        print('')
-
+        bruh = turret.step_test(the_share)
         yield 0
         
 def sensor_task(shares):
@@ -100,7 +55,7 @@ def sensor_task(shares):
     @param shares A tuple of a share and queue from which this task gets data
     """
     # Get references to the share and queue which have been passed to this task
-    the_share, the_queue = shares
+    share, the_queue = shares
     
     # Stuff copied over from last lab below
     # Code needed to initalize motor
@@ -108,11 +63,7 @@ def sensor_task(shares):
     
     
     while True:
-        # Show everything currently in the queue and the value in the share
-        print(f"Share: {the_share.get ()}, Queue: ", end='')
-        while q0.any():
-            print(f"{the_queue.get ()} ", end='')
-        print('')
+        bruhs = sensor.test_MLX_cam()
 
         yield 0
 

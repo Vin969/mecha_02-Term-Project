@@ -21,6 +21,8 @@ class thermal_cam:
         
         self.state = 0
         self.image = None
+        self.deg_shoot = 0
+        self.counter = 0 
         
     def find_deg(self, col):
         """! 
@@ -56,24 +58,30 @@ class thermal_cam:
         if self.state == 0:
             if self.image is None:
                 self.image = self.camera.get_image_nonblocking()
-                time.sleep_ms(30)
+                self.counter += 1
             elif self.image is not None:  
                 self.state += 1
+                self.counter += 1
         elif self.state == 1 :           
             col_shoot = self.camera.get_csv(self.image, limits=(0, 99))
             print("Column with highest average:", col_shoot)
-            deg_shoot = therm.find_deg(col_shoot)
-            print("Degree to shoot:", deg_shoot, "degrees")
+            self.deg_shoot = therm.find_deg(col_shoot)
+            print("Degree to shoot:", self.deg_shoot, "degrees")
             
-            print(f"Memory: {gc.mem_free()} B free")
-            time.sleep_ms(30)
             self.state = 0
             self.image = None
-
+            self.counter += 1
+            if self.counter >= 170:
+                self.state += 1
+                
+        elif self.state == 2:  
+            return self.deg_shoot
+            
 if __name__ == "__main__":
     therm = thermal_cam()
     while True:
         try:
             therm.test_MLX_cam()
+            time.sleep_ms(30)
         except KeyboardInterrupt:
             break

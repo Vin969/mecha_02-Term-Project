@@ -54,6 +54,9 @@ class turret_driver:
                 
         # Idle state
         elif self.state == 1:
+            # if sensor_data != None:
+            #     self.state += 1 
+            
             self.counter += 1
             if self.counter == 37:
                 self.state += 1 

@@ -64,6 +64,10 @@ class MotorDriver:
         except TypeError:
             print('Set level to signed int')
             
+    def duty_zero(self):
+        self.ch1.pulse_width_percent(0)
+        self.ch2.pulse_width_percent(0)
+            
 ## The following code, if not commented out and all run in a main file, would define the parameters
 ## passed into the motor driver class method. This code would need to be used in a separate main file
 ## to properly define the parameters outside of this file that is loaded into the microcontroller.
