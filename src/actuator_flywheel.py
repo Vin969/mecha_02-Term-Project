@@ -26,7 +26,7 @@ class actuator_driver:
         if self.state == 0:
             self.counter += 1
             print(self.state)
-            if self.counter == 40:
+            if self.counter == 50:
                 self.state += 1 
                 self.counter = 0
                 
@@ -34,7 +34,7 @@ class actuator_driver:
         elif self.state == 1:
             self.actuator.set_duty_cycle(100)
             self.counter += 1
-            if self.counter == 20:
+            if self.counter == 100:
                 self.state += 1 
                 self.counter = 0
                 self.actuator.duty_zero()

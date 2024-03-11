@@ -80,4 +80,4 @@ if __name__ == "__main__":
     ch1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
     ch2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
     moe = MotorDriver(en_pin,a_pin,another_pin,m_timer,ch1,ch2)
-    moe.set_duty_cycle(100)
+    moe.set_duty_cycle(-100)
