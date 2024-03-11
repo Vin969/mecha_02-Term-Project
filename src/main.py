@@ -19,18 +19,20 @@ import turret_driver as tur
 import actuator_flywheel as act
 
 
+
 def actuator_task(shares):
     """!
     Task which puts things into a share and a queue.
     @param shares A list holding the share and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
-    my_share, my_queue = shares
     
     actuator = act.actuator_driver()
+    something = None
     
     while True:
-        actuator.act_test(my_share)
+        somthing = shares.get()
+        actuator.act_test(something)
         
         yield 0
 
@@ -41,13 +43,16 @@ def turret_task(shares):
     @param shares A tuple of a share and queue from which this task gets data
     """
     # Get references to the share and queue which have been passed to this task
-    the_share, the_queue = shares
     
     turret = tur.turret_driver()
-    
+    bruh = None
     while True:
-        bruh = turret.step_test(the_share)
+        dude = shares.get()
+        bruh = turret.step_test(dude)
+        if bruh != None:
+            shares.put(bruh)
         yield 0
+    
         
 def sensor_task(shares):
     """!
@@ -55,16 +60,16 @@ def sensor_task(shares):
     @param shares A tuple of a share and queue from which this task gets data
     """
     # Get references to the share and queue which have been passed to this task
-    share, the_queue = shares
     
     # Stuff copied over from last lab below
     # Code needed to initalize motor
     sensor = therm.thermal_cam()
     
-    
+    bruhs = None
     while True:
         bruhs = sensor.test_MLX_cam()
-
+        if bruhs != None:
+            shares.put(bruhs)
         yield 0
 
 
@@ -76,20 +81,18 @@ if __name__ == "__main__":
           "Press Ctrl-C to stop and show diagnostics.")
 
     # Create a share and a queue to test function and diagnostic printouts
-    share0 = task_share.Share('h', thread_protect=False, name="Share 0")
-    q0 = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
-                          name="Queue 0")
+    my_queue = task_share.Queue('h',100,thread_protect=True, name="My Queue")
 
     # Create the tasks. If trace is enabled for any task, memory will be
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
     task1 = cotask.Task(sensor_task, name="Sensor", priority=1, period=50,
-                        profile=True, trace=False, shares=(share0, q0))
+                        profile=True, trace=False, shares= my_queue)
     task2 = cotask.Task(turret_task, name="Turret", priority=2, period=80,
-                        profile=True, trace=False, shares=(share0, q0))
+                        profile=True, trace=False, shares= my_queue)
     task3 = cotask.Task(actuator_task, name="Actuator", priority=3, period=80,
-                        profile=True, trace=False, shares=(share0, q0))
+                        profile=True, trace=False, shares = my_queue)
     
     cotask.task_list.append(task1)
     cotask.task_list.append(task2)
