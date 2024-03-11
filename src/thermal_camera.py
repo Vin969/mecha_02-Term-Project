@@ -42,7 +42,7 @@ class thermal_cam:
             deg = 0
          
         x = 95.5 
-        d = 191
+        d = 181.5
 
         ac_deg = math.atan((x*math.tan(math.radians(deg)))/d)
         return math.degrees(ac_deg)

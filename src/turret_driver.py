@@ -35,7 +35,9 @@ class turret_driver:
         self.pos = False
         self.counter = 0
         
-        self.gain = 1.2
+        self.gain = 0.09
+        self.tur_con.set_Kp(self.gain)
+        self.tur_enc.zero()
         self.position = 65500
         
         self.state = 0
@@ -44,30 +46,36 @@ class turret_driver:
     def step_test(self, sensor_data):
         # 180 degree turn lol
         if self.state == 0:
-            self.pos = self.tur_con(self.turret, self.tur_enc, self.tur_con, self.gain, self.position)
+            self.pos = self.tur_con.cl_loop_response(self.turret, self.tur_enc, self.tur_con, self.position)
+            print(self.state)
             if self.pos == True:
                 self.state += 1 
                 self.pos = False
                 
         # Idle state
         elif self.state == 1:
-            self.counter += 1 
-            if self.counter == 100:
+            self.counter += 1
+            if self.counter == 37:
                 self.state += 1 
                 self.counter = 0
         
         elif self.state == 2:
-            ## Math for position caclulation
+            self.position = int(sensor_data*(65500/180))## Math for position caclulation
             if self.position < 0:
-                self.gain *= 1
                 self.state += 1
+                self.tur_con.set_Kp(self.gain)
+                self.tur_enc.zero()
             elif self.position > 0:
-                self.state += 1 
+                self.state += 1
+                self.tur_enc.zero()
+                self.tur_con.set_Kp(self.gain)
             else: 
-                self.state += 2 
+                self.state += 2
+                self.tur_enc.zero()
+                self.tur_con.set_Kp(self.gain)
         
         elif self.state == 3:
-            self.pos = self.tur_con(self.turret, self.tur_enc, self.tur_con, self.gain, self.position)
+            self.pos = self.tur_con.cl_loop_response(self.turret, self.tur_enc, self.tur_con, self.position)
             if self.pos == True:
                 self.state += 1 
                 self.pos = False
@@ -80,7 +88,7 @@ if __name__ == "__main__":
     tur = turret_driver()
     while True:
         try:
-            tur.step_test(3.68)
-            utime.sleep_ms(80)
+            tur.step_test(-8.284675)
+            utime.sleep_ms(10)
         except KeyboardInterrupt:
             break

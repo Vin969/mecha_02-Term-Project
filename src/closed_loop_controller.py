@@ -71,7 +71,7 @@ class control:
         pwm = self.gain*(self.setpoint - actual)
         return pwm
     
-    def cl_loop_response(self, motor, encoder, controller, gain, setpoint):
+    def cl_loop_response(self, motor, encoder, controller, setpoint):
         """!
         Function that runs the step reponse for the motor. This function
         implements a finite-state-machine and class variables to keep track of 
@@ -97,7 +97,8 @@ class control:
                 if abs(duty_cycle) <= 10:
                     # Sets next state
                     self.state += 1
-                    
+                    return True
+                   
             # State 1: Step-Response Redundancy
             # Places the ending value of the step response 10 times
             # For cleaner plots
@@ -116,19 +117,8 @@ class control:
                     # Grabs initial time
                     self.init_time = utime.ticks_ms()
             
-            # State 2: Printing Step Response
-            elif self.state == 2:                             
-                # Prints time and encoder position in .CSV style format
-                print(f"{utime.ticks_ms() - self.init_time},{self.position[self.print_counter]}")
-                
-                # Counter for this state
-                # Exits when printing raises an IndexError
-                self.print_counter += 1
-                
-                # utime.sleep_ms(9)
-            
             # State 3:Ending
-            elif self.state == 3: 
+            elif self.state == 2: 
                 # Prints end once the code is done running through 
                 # Indicates to GUI when to start plotting
                 print('end')
@@ -140,7 +130,6 @@ class control:
 #                 controller.set_Kp(gain)
                 
                 # Zeros outs necessary values and parameters for next run through 
-                return True 
                 
                 encoder.zero()
                 self.state = 0
@@ -166,10 +155,10 @@ class control:
 
 if __name__ == "__main__":
     # Code needed to initalize motor
-    en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
-    a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
-    another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
-    m_timer = pyb.Timer(3, freq=5000)
+    en_pin = pyb.Pin(pyb.Pin.board.PC1, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
+    a_pin = pyb.Pin(pyb.Pin.board.PA0, pyb.Pin.OUT_PP)
+    another_pin = pyb.Pin(pyb.Pin.board.PA1, pyb.Pin.OUT_PP)
+    m_timer = pyb.Timer(5, freq=5000)
     chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
     chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
     
@@ -178,7 +167,7 @@ if __name__ == "__main__":
     
     # Code needed to initialize encoder. Set 'tim' to the correct timer
     # for the pins being used.
-    tim = 8
+    tim = 4
     timer = pyb.Timer(tim, prescaler = 0, period = 65535)
     
     # Depending on the timer used, the code will autometically
@@ -201,13 +190,13 @@ if __name__ == "__main__":
     # Initializes Motor Controller
     controller = control()
        
-    controller.set_setpoint(6900)
-    controller.set_Kp(0.07)
+#     controller.set_setpoint(60800)
+    controller.set_Kp(1.2)
     position = []
     encoder.zero()
     
     while True:
-        controller.cl_loop_response(motor, encoder, controller, 1.2, 65500)
+        controller.cl_loop_response(motor, encoder, controller, -1541)
     
     # Prompts user to input a controller gain
     # Initializes variables to be used in the while loop
