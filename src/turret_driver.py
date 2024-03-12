@@ -35,7 +35,7 @@ class turret_driver:
         self.pos = False
         self.counter = 0
         
-        self.gain = 0.04
+        self.gain = 0.045
         self.tur_con.set_Kp(self.gain)
         self.tur_enc.zero()
         self.position = 65500
@@ -82,6 +82,7 @@ class turret_driver:
         elif self.state == 3:
             self.pos = self.tur_con.cl_loop_response(self.turret, self.tur_enc, self.tur_con, self.position)
             if self.pos == True:
+#                 print('s4')
                 self.state += 1 
                 self.pos = False
         

@@ -44,7 +44,7 @@ class thermal_cam:
             deg = 0
          
         x = 95.5 
-        d = 181.5
+        d = 180.5
 
         ac_deg = math.atan((x*math.tan(math.radians(deg)))/d)
         return math.degrees(ac_deg)
@@ -56,7 +56,6 @@ class thermal_cam:
         """
         
         if self.state == 0:
-            print('s0')
             if self.image is None:
                 self.image = self.camera.get_image_nonblocking()
                 self.counter += 1
@@ -65,11 +64,10 @@ class thermal_cam:
                 self.counter += 1
                 
         elif self.state == 1 :
-            print('s1')
             col_shoot = self.camera.get_csv(self.image, limits=(0, 99))
 #             print("Column with highest average:", col_shoot)
             self.deg_shoot = therm.find_deg(col_shoot)
-            print("Degree to shoot:", self.deg_shoot, "degrees")
+#             print("Degree to shoot:", self.deg_shoot, "degrees")
             
             self.image = None
             self.counter += 1
@@ -81,11 +79,11 @@ class thermal_cam:
                 
                 
         elif self.state == 2:
-            print('s2')
-            print('done')
-            print(self.deg_shoot)
-            return self.deg_shoot + 400
+#             print('s2')
+#             print('done')
+#             print("Degree to shoot:", self.deg_shoot, "degrees")
             self.state += 1
+            return self.deg_shoot + 400
             
         elif self.state == 3:
             self.counter += 1

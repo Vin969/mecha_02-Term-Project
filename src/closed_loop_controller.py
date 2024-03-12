@@ -29,6 +29,8 @@ class control:
         self.print_counter = 0
         self.init_time = 0
         self.position = []
+        self.duty_cycle = 0
+        self.prev_cycle = 0
     
     def set_setpoint(self, user_p):
         """! 
@@ -88,14 +90,16 @@ class control:
                 controller.set_setpoint(setpoint)
                 # Continously runs the step response with a delay of 10 ms ...
                 actual = encoder.read()
-                duty_cycle = controller.run(actual)
-                motor.set_duty_cycle(duty_cycle)
+                self.duty_cycle = controller.run(actual)
+                motor.set_duty_cycle(self.duty_cycle)
                 self.position.append(actual)
                 # utime.sleep_ms(10)
-            
+#                 print(self.duty_cycle)
+                
             # ... until the set motor position is reached
-                if abs(duty_cycle) <= 10:
+                if abs(self.duty_cycle) <= 25:
                     # Sets next state
+#                     print('end')
                     self.state += 1
                     return True
                    
@@ -121,7 +125,7 @@ class control:
             elif self.state == 2: 
                 # Prints end once the code is done running through 
                 # Indicates to GUI when to start plotting
-                print('end')
+#                 print('actual end')
                 
                 # Clears position list
                 self.position.clear()
@@ -139,11 +143,12 @@ class control:
         
         # This portion only runs the first time through
         # This makes the motor run initially
-        except TypeError:
-            duty_cycle = controller.run(0)
-            motor.set_duty_cycle(duty_cycle)
-            self.position.append(0)
-            # utime.sleep_ms(10)
+#         except TypeError:
+#             print('typeerror')
+#             self.duty_cycle = controller.run(0)
+#             motor.set_duty_cycle(self.duty_cycle)
+#             self.position.append(0)
+#             # utime.sleep_ms(10)
             
         # Only runs when finished printing the step-response values
         except IndexError:

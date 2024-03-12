@@ -1,5 +1,5 @@
 """!
-@file basic_tasks.py
+@file main.py
     This file contains a demonstration program that runs some tasks, an
     inter-task shared variable, and a queue. The tasks don't really @b do
     anything; the example just shows how these elements are created and run.
@@ -46,10 +46,9 @@ def turret_task(shares):
     turret = tur.turret_driver()
     
     if_aim = None
-    deg = 400
+    deg = None
     
     while True:
-        print('in scheduler_turret:', deg)
         deg = degree.get()
         if_aim = turret.step_test(deg)
         if if_aim != None:
@@ -91,7 +90,7 @@ if __name__ == "__main__":
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
-    task1 = cotask.Task(sensor_task, name="Sensor", priority=1, period=130,
+    task1 = cotask.Task(sensor_task, name="Sensor", priority=1, period=100,
                         profile=True, trace=False, shares=s1)
     task2 = cotask.Task(turret_task, name="Turret", priority=3, period=10,
                         profile=True, trace=False, shares=(s1,s2))

@@ -25,7 +25,7 @@ class actuator_driver:
         # 180 degree turn lol
         if self.state == 0:
             self.counter += 1
-            if self.counter == 50:
+            if self.counter == 10:
                 self.state += 1 
                 self.counter = 0
                 
@@ -33,7 +33,7 @@ class actuator_driver:
         elif self.state == 1:
             self.actuator.set_duty_cycle(100)
             self.counter += 1
-            if self.counter == 20:
+            if self.counter == 35:
                 self.state += 1 
                 self.counter = 0
                 self.actuator.duty_zero()
@@ -41,7 +41,7 @@ class actuator_driver:
         # Turning on flywheel
         elif self.state == 2:
             self.counter += 1    
-            if self.counter == 40:
+            if self.counter == 5:
                 self.pinC0.value(1)
                 self.state += 1 
                 self.counter = 0
@@ -50,7 +50,8 @@ class actuator_driver:
         elif self.state == 3:
 #             print('actuator:',pan_lock)
             if pan_lock == 1:
-                self.state += 1 
+                self.state += 1
+                print('yay')
             
 #             self.counter += 1
 #             if self.counter == 40:
@@ -59,10 +60,9 @@ class actuator_driver:
                 
         # Extend actuator fully
         elif self.state == 4:
-            print('yay')
             self.actuator.set_duty_cycle(100)
             self.counter += 1 
-            if self.counter == 20:
+            if self.counter == 80:
                 self.state += 1 
                 self.counter = 0
             
