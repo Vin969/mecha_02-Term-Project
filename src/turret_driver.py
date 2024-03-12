@@ -35,7 +35,7 @@ class turret_driver:
         self.pos = False
         self.counter = 0
         
-        self.gain = 0.05
+        self.gain = 0.04
         self.tur_con.set_Kp(self.gain)
         self.tur_enc.zero()
         self.position = 65500
@@ -46,23 +46,25 @@ class turret_driver:
     def step_test(self, sensor_data):
         # 180 degree turn lol
         if self.state == 0:
+#             print('in task:', sensor_data)
             self.pos = self.tur_con.cl_loop_response(self.turret, self.tur_enc, self.tur_con, self.position)
-            print(self.state)
             if self.pos == True:
                 self.state += 1 
                 self.pos = False
                 
         # Idle state
         elif self.state == 1:
-            # if sensor_data != None:
-            #     self.state += 1 
-            
-            self.counter += 1
-            if self.counter == 225:
+#             print('turret:', sensor_data)
+            if sensor_data != None and sensor_data < 20:
                 self.state += 1 
-                self.counter = 0
+            
+#             self.counter += 1
+#             if self.counter == 225:
+#                 self.state += 1 
+#                 self.counter = 0
         
         elif self.state == 2:
+#             print('yay')
             self.position = int(sensor_data*(65500/180))## Math for position caclulation
             if self.position < 0:
                 self.state += 1

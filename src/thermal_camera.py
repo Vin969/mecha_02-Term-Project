@@ -64,13 +64,12 @@ class thermal_cam:
                 self.counter += 1
         elif self.state == 1 :           
             col_shoot = self.camera.get_csv(self.image, limits=(0, 99))
-            print("Column with highest average:", col_shoot)
+#             print("Column with highest average:", col_shoot)
             self.deg_shoot = therm.find_deg(col_shoot)
-            print("Degree to shoot:", self.deg_shoot, "degrees")
+#             print("Degree to shoot:", self.deg_shoot, "degrees")
             
             self.image = None
             self.counter += 1
-            print(self.counter)
             if self.counter >= 40:
                 print('hit')
                 self.state += 1
@@ -79,9 +78,14 @@ class thermal_cam:
                 
                 
         elif self.state == 2:
-            print('3')
+            print('done')
+            print(self.deg_shoot)
             return self.deg_shoot
             self.state = 2
+            
+        elif self.state == 3:
+            self.counter += 1
+            
             
 if __name__ == "__main__":
     therm = thermal_cam()
