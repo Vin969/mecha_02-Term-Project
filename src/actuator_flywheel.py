@@ -48,8 +48,8 @@ class actuator_driver:
                 
         # Wait to stop turning for target
         elif self.state == 3:
-            print('actuator:',pan_lock)
-            if pan_lock == True:
+#             print('actuator:',pan_lock)
+            if pan_lock == 1:
                 self.state += 1 
             
 #             self.counter += 1
@@ -59,6 +59,7 @@ class actuator_driver:
                 
         # Extend actuator fully
         elif self.state == 4:
+            print('yay')
             self.actuator.set_duty_cycle(100)
             self.counter += 1 
             if self.counter == 20:

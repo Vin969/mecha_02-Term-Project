@@ -55,7 +55,7 @@ class turret_driver:
         # Idle state
         elif self.state == 1:
 #             print('turret:', sensor_data)
-            if sensor_data != None and sensor_data < 20:
+            if sensor_data != 0:
                 self.state += 1 
             
 #             self.counter += 1
@@ -65,7 +65,7 @@ class turret_driver:
         
         elif self.state == 2:
 #             print('yay')
-            self.position = int(sensor_data*(65500/180))## Math for position caclulation
+            self.position = int((sensor_data - 400)*(65500/180))## Math for position caclulation
             if self.position < 0:
                 self.state += 1
                 self.tur_con.set_Kp(self.gain)
@@ -86,7 +86,7 @@ class turret_driver:
                 self.pos = False
         
         elif self.state == 4:
-            return True
+            return 1
             self.state += 1
             
 if __name__ == "__main__":
