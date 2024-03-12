@@ -196,7 +196,7 @@ if __name__ == "__main__":
     encoder.zero()
     
     while True:
-        controller.cl_loop_response(motor, encoder, controller, -1541)
+        controller.cl_loop_response(motor, encoder, controller, -65500)
     
     # Prompts user to input a controller gain
     # Initializes variables to be used in the while loop

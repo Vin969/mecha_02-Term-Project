@@ -35,7 +35,7 @@ class turret_driver:
         self.pos = False
         self.counter = 0
         
-        self.gain = 0.09
+        self.gain = 0.05
         self.tur_con.set_Kp(self.gain)
         self.tur_enc.zero()
         self.position = 65500
@@ -58,7 +58,7 @@ class turret_driver:
             #     self.state += 1 
             
             self.counter += 1
-            if self.counter == 37:
+            if self.counter == 225:
                 self.state += 1 
                 self.counter = 0
         

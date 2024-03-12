@@ -26,15 +26,15 @@ def actuator_task(shares):
     @param shares A list holding the share and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
-    
+
     actuator = act.actuator_driver()
-    something = None
-    
     while True:
-        somthing = shares.get()
-        actuator.act_test(something)
+        actuator.act_test(True)
         
         yield 0
+        
+        
+
 
 
 def turret_task(shares):
@@ -45,13 +45,11 @@ def turret_task(shares):
     # Get references to the share and queue which have been passed to this task
     
     turret = tur.turret_driver()
-    bruh = None
     while True:
-        dude = shares.get()
-        bruh = turret.step_test(dude)
-        if bruh != None:
-            shares.put(bruh)
+        bruh = turret.step_test(10.1)
+
         yield 0
+
     
         
 def sensor_task(shares):
@@ -65,12 +63,11 @@ def sensor_task(shares):
     # Code needed to initalize motor
     sensor = therm.thermal_cam()
     
-    bruhs = None
     while True:
-        bruhs = sensor.test_MLX_cam()
-        if bruhs != None:
-            shares.put(bruhs)
+        bruhs = sensor.test_MLX_cam(sensor)
+        
         yield 0
+             
 
 
 # This code creates a share, a queue, and two tasks, then starts the tasks. The
@@ -81,17 +78,17 @@ if __name__ == "__main__":
           "Press Ctrl-C to stop and show diagnostics.")
 
     # Create a share and a queue to test function and diagnostic printouts
-    my_queue = task_share.Queue('h',100,thread_protect=True, name="My Queue")
+    my_queue = task_share.Queue('h',3,thread_protect=True, name="My Queue")
 
     # Create the tasks. If trace is enabled for any task, memory will be
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
-    task1 = cotask.Task(sensor_task, name="Sensor", priority=1, period=50,
+    task1 = cotask.Task(sensor_task, name="Sensor", priority=4, period=130,
                         profile=True, trace=False, shares= my_queue)
-    task2 = cotask.Task(turret_task, name="Turret", priority=2, period=80,
+    task2 = cotask.Task(turret_task, name="Turret", priority=3, period=20,
                         profile=True, trace=False, shares= my_queue)
-    task3 = cotask.Task(actuator_task, name="Actuator", priority=3, period=80,
+    task3 = cotask.Task(actuator_task, name="Actuator", priority=2, period=100,
                         profile=True, trace=False, shares = my_queue)
     
     cotask.task_list.append(task1)

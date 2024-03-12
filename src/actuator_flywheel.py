@@ -25,7 +25,6 @@ class actuator_driver:
         # 180 degree turn lol
         if self.state == 0:
             self.counter += 1
-            print(self.state)
             if self.counter == 50:
                 self.state += 1 
                 self.counter = 0
@@ -34,7 +33,7 @@ class actuator_driver:
         elif self.state == 1:
             self.actuator.set_duty_cycle(100)
             self.counter += 1
-            if self.counter == 100:
+            if self.counter == 20:
                 self.state += 1 
                 self.counter = 0
                 self.actuator.duty_zero()
