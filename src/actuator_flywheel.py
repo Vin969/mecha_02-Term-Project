@@ -88,7 +88,7 @@ class actuator_driver:
             self.counter += 1 
             
             # Stops after an arbitrary amount of time to avoid running motor continuously
-            if self.counter == 80:
+            if self.counter == 40:
                 self.state += 1 
                 self.counter = 0
 
