@@ -20,7 +20,7 @@ class encoder:
         """! 
         Initializes the motor encoder by initializing GPIO
         pins and setting values for variables used for tracking the
-        total positiion traveled by the motor. 
+        total position traveled by the motor.
         @param timer Timer associated with the chosen pins (8)
         @param ch1 Timer Channel associated with the chosen pin1 (C6)
         @param ch2 Timer Channel associated with the chosen pin2 (C7)
@@ -29,7 +29,7 @@ class encoder:
         self.ch1 = ch1
         self.ch2 = ch2
         
-        # Used for tracking the total positiion traveled by the motor
+        # Used for tracking the total position traveled by the motor
         self.last_count = 0 
         self.current_count = 0
         self.change =  0
@@ -70,13 +70,13 @@ class encoder:
             
     def zero(self):
         """!
-        This method sets the total encoder posotion moved to zero, to
+        This method sets the total encoder position moved to zero, to
         reset the position. 
         """
         self.current_count = 0
        
 # if __name__ == "__main__":
-#     # Code needed to initalize motor
+#     # Code needed to initialize motor
 #     en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
 #     a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
 #     another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
@@ -92,8 +92,8 @@ class encoder:
 #     tim = 8
 #     timer = pyb.Timer(tim, prescaler = 0, period = 65535)
     
-#     # Depending on the timer used, the code will autometically
-#     # initalize the correct channel and pins. For example, if the timer
+#     # Depending on the timer used, the code will automatically
+#     # initialize the correct channel and pins. For example, if the timer
 #     # used is '4', then the B6/B7 pins will be initialized. In this test code,
 #     # C6/C7 is used.
 #     if tim == 4:
@@ -112,7 +112,7 @@ class encoder:
 #     # Number of iterations used for the while loop
 #     iteration = 0
     
-#     # Runs the motor and reads/prints the total postition moved by the encoder.
+#     # Runs the motor and reads/prints the total position moved by the encoder.
 #     # After 1000 iterations, the total position moved will be reset.
 #     while True:
 #         # The duty cycle set should be between 0 and 100. Positive number for

@@ -1,11 +1,28 @@
+"""!
+@file actuator_flywheel.py
+This file contains code that controls the linear actuator and flywheel system
+present in the design. This file contains multiple states of the linear actuator
+that are run when certain conditions are met.
+
+@author mecha02 (Kishor Natarajan, Candice Espitia, Vinayak Sharath)
+@date   12-Mar-2024 
+"""
+
 import utime
 import motor_driver as moe
 import pyb
 
 class actuator_driver:
+    """! 
+    This class implements the necessary code to run the linear actuator. 
+    """
+    
     def __init__(self):
-        # Stuff copied over from last lab below
-        # Code needed to initalize motor
+        """! 
+        Initializes the appropriate motor driver ports, state values, and counter.
+        """
+        
+        # Code needed to initialize linear actuator motor
         en_pin = pyb.Pin(pyb.Pin.board.PA10, mode = pyb.Pin.OPEN_DRAIN, pull = pyb.Pin.PULL_UP, value = 1)
         a_pin = pyb.Pin(pyb.Pin.board.PB4, pyb.Pin.OUT_PP)
         another_pin = pyb.Pin(pyb.Pin.board.PB5, pyb.Pin.OUT_PP)
@@ -13,59 +30,69 @@ class actuator_driver:
         chm1 = m_timer.channel(1, pyb.Timer.PWM, pin=a_pin)
         chm2 = m_timer.channel(2, pyb.Timer.PWM, pin=another_pin)
         
-        self.pinC0 = pyb.Pin(pyb.Pin.board.PC0, pyb.Pin.OUT_PP)
-        
         # Motor Initialization done through imported MotorDriver class
         self.actuator = moe.MotorDriver(en_pin,a_pin,another_pin,m_timer,chm1,chm2)
+        
+        # Indication of the state in the task
         self.state = 0
+        
+        # Counter used for time based tasks
         self.counter = 0
         
         
     def act_test(self, pan_lock):
-        # 180 degree turn lol
+        """! 
+        Controls the behavior of the linear actuator. 
+        @param pan_lock indication of whether turret is aiming at target
+        """
+        
+        # State 0: Idle state 1
+        # Actuator is idle for an arbitrary amount of time
         if self.state == 0:
             self.counter += 1
+            
+            # After 10 iterations, moves onto next state
             if self.counter == 10:
                 self.state += 1 
                 self.counter = 0
                 
-        # Priming state
+        # State 1: Priming state
+        # Actuator pushes bullet right before it touches flywheel
+        # Speeds up the process of shooting, due to the fact that the actuator is
+        # very slow
         elif self.state == 1:
+            # Actuator extends
             self.actuator.set_duty_cycle(100)
             self.counter += 1
+            
+            # Stops after 35 iterations
             if self.counter == 35:
                 self.state += 1 
                 self.counter = 0
                 self.actuator.duty_zero()
-                
-        # Turning on flywheel
+        
+        # State 2: Idle state 2        
+        # Actuator is idle until the turret is aiming at the target
         elif self.state == 2:
-            self.counter += 1    
-            if self.counter == 5:
-                self.pinC0.value(1)
-                self.state += 1 
-                self.counter = 0
-                
-        # Wait to stop turning for target
-        elif self.state == 3:
-#             print('actuator:',pan_lock)
+            
+            # Sets next state if turret is aiming at target
             if pan_lock == 1:
                 self.state += 1
-                print('yay')
-            
-#             self.counter += 1
-#             if self.counter == 40:
-#                 self.state += 1 
-#                 self.counter = 0
-                
-        # Extend actuator fully
-        elif self.state == 4:
+                          
+        
+        # State 3: Shoot Bullet        
+        # Extends actuator fully to shoot bullet
+        elif self.state == 3:
+            # Shoots bullet
             self.actuator.set_duty_cycle(100)
             self.counter += 1 
+            
+            # Stops after an arbitrary amount of time to avoid running motor continuously
             if self.counter == 80:
                 self.state += 1 
                 self.counter = 0
-            
+
+## Code to test functionality            
 if __name__ == "__main__":
     act = actuator_driver()
     while True:

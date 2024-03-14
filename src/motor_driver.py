@@ -3,8 +3,8 @@
 This file contains code which when run through Nucleo L476RG board will initialize
 and run a connected motor at a desired duty cycle
 
-@author mecha02
-@date   05-Feb-2024
+@author mecha02 (Kishor Natarajan, Candice Espitia, Vinayak Sharath)
+@date   12-Mar-2024 
 """
 
 class MotorDriver:
@@ -65,6 +65,9 @@ class MotorDriver:
             print('Set level to signed int')
             
     def duty_zero(self):
+        """!
+        This method sets the duty cycle to zero
+        """
         self.ch1.pulse_width_percent(0)
         self.ch2.pulse_width_percent(0)
             

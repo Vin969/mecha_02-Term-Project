@@ -16,9 +16,12 @@
 # 
 #  There's some test code at the bottom of this file which serves as a
 #  beginning example.
+#
+#  This code is largely unchanged except for get_csv function
 # 
 #  @author mwerezak Original files, Summer 2022
 #  @author JR Ridgely Added simplified wrapper class @c MLX_Cam, January 2023
+#  @author mecha02 Modified function get_csv
 #  @copyright (c) 2022-2023 by the authors and released under the GNU Public
 #      License, version 3.
 
@@ -146,6 +149,7 @@ class MLX_Cam:
     #  @param   array The array of data to be presented
     #  @param   limits A 2-iterable containing the maximum and minimum values
     #           to which the data should be scaled, or @c None for no scaling
+    #  @returns column with the highest average temperature
     def get_csv(self, array, limits=None):     
         if limits and len(limits) == 2:
             scale = (limits[1] - limits[0]) / (max(array) - min(array))
@@ -153,7 +157,7 @@ class MLX_Cam:
         else:
             offset = 0.0
             scale = 1.0
-              
+        
         high_col = None
         high_avg = float('-inf')
 
