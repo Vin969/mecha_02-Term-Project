@@ -74,74 +74,29 @@ class control:
         @param gain gain needed for following run
         @returns indication of whether step response is done
         """
-        try:          
-            # State 0: Step-response
-            if self.state == 0:
-                controller.set_setpoint(setpoint)
-                # Continuously runs the step response with a delay of 10 ms ...
-                actual = encoder.read()
-                self.duty_cycle = controller.run(actual)
-                motor.set_duty_cycle(self.duty_cycle)
-                self.position.append(actual)
-                
-                # ... until the set motor position is reached
-                if abs(self.duty_cycle) <= 25:
-                    self.state += 1
-                    return True
-                   
-            # State 1: Step-Response Redundancy
-            # Places the ending value of the step response 10 times
-            # For cleaner plots
-            elif self.state == 1:
-                actual = encoder.read()
-                self.position.append(actual)
-                # utime.sleep_ms(10)
-                
-                # Counter for this state
-                self.steady_counter += 1
-                
-                # Sets next state once counter reaches it's limit
-                if self.steady_counter == 10:
-                    self.state += 1
-                    
-                    # Grabs initial time
-                    self.init_time = utime.ticks_ms()
+        # State 0: Step-response
+        if self.state == 0:
+            controller.set_setpoint(setpoint)
+            # Continuously runs the step response with a delay of 10 ms ...
+            actual = encoder.read()
+            self.duty_cycle = controller.run(actual)
+            motor.set_duty_cycle(self.duty_cycle)
+            self.position.append(actual)
             
-            # State 3:Ending
-            elif self.state == 2: 
-                # Prints end once the code is done running through 
-                # Indicates to GUI when to start plotting
-#                 print('actual end')
-                
-                # Clears position list
-                self.position.clear()
-                
-                # Sets Kp value
-#                 controller.set_Kp(gain)
-                
-                # Zeros outs necessary values and parameters for next run through 
-                
-                encoder.zero()
-                self.state = 0
-                self.print_counter = 0
-                self.steady_counter = 0
-                
+            # ... until the set motor position is reached
+            if abs(self.duty_cycle) <= 25:
+                self.state += 1
+                return True
+               
         
-        # This portion only runs the first time through
-        # This makes the motor run initially
-#         except TypeError:
-#             print('typeerror')
-#             self.duty_cycle = controller.run(0)
-#             motor.set_duty_cycle(self.duty_cycle)
-#             self.position.append(0)
-#             # utime.sleep_ms(10)
+        # State 1: Resetting Values
+        # Resetting Encocder and position values before running another 
+        # step response
+        elif self.state == 2: 
+            self.position.clear()
+            encoder.zero()
+            self.state = 0
             
-        # Only runs when finished printing the step-response values
-        except IndexError:
-            self.state += 1
-        
-        # except ValueError:
-        #     self.state += 1
             
 
 if __name__ == "__main__":
@@ -188,53 +143,3 @@ if __name__ == "__main__":
     
     while True:
         controller.cl_loop_response(motor, encoder, controller, -65500)
-    
-    # Prompts user to input a controller gain
-    # Initializes variables to be used in the while loop
-#     controller.set_setpoint()
-#     controller.set_Kp()
-#     encoder.zero()
-#     position = []
-#     
-#     while True:
-#         try:
-#             # Continuously runs the step response with a delay of 10 ms ...
-#             actual = encoder.read()
-#             duty_cycle = controller.run(actual)
-#             motor.set_duty_cycle(duty_cycle)
-#             position.append(actual)
-#             utime.sleep_ms(10)
-#             # ... until the set motor position is reached
-#             if abs(duty_cycle) <= 10:
-#                 # Appends the current encoder value 100 times for plotting purposes
-#                 for i in range(100):
-#                     position.append(actual)
-#                     utime.sleep_ms(10)
-#                     
-#                 # Grabs initial time
-#                 init_time = utime.ticks_ms()
-#                 
-#                 # Prints time and encoder position in .CSV style format
-#                 for i in position:
-#                     print(f"{utime.ticks_ms() - init_time},{i}")
-#                     utime.sleep_ms(9)
-#                 
-#                 # Prints end once the code is done running through 
-#                 print('end')
-#                 
-#                 # Clears position list
-#                 position.clear()
-#                 utime.sleep_ms(9)
-#                 
-#                 # Asks for another Kp value and zeros encoder
-#                 controller.set_Kp()
-#                 encoder.zero()
-#         
-#         # This portion only runs the first time through
-#         # This makes the motor run initially
-#         except TypeError:
-#             duty_cycle = controller.run(0)
-#             motor.set_duty_cycle(duty_cycle)
-#             position.append(0)
-#             utime.sleep_ms(10)
-#             continue
