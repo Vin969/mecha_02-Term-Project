@@ -92,17 +92,11 @@ class turret_driver:
             # Converts degree to encoder ticks
             self.position = int((sensor_data - 400)*(65500/180))
             
-            # If target is to the left of sensor's center
-            if self.position < 0:
+            # If target is to the left or right of the sensor's center
+            if self.position < 0 or self.position > 0:
                 self.state += 1
                 self.tur_con.set_Kp(self.gain)
                 self.tur_enc.zero()
-                
-            # If target is to the right of sensor's center
-            elif self.position > 0:
-                self.state += 1
-                self.tur_enc.zero()
-                self.tur_con.set_Kp(self.gain)
             
             # If target is directly in front of the sensor
             else: 
