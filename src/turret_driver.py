@@ -107,8 +107,6 @@ class turret_driver:
             # If target is directly in front of the sensor
             else: 
                 self.state += 2
-                self.tur_enc.zero()
-                self.tur_con.set_Kp(self.gain)
                 
         # State 3: Turning to target
         # Turns turret towards target
