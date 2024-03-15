@@ -78,8 +78,7 @@ class actuator_driver:
             # Sets next state if turret is aiming at target
             if pan_lock == 1:
                 self.state += 1
-                          
-        
+                                
         # State 3: Shoot Bullet        
         # Extends actuator fully to shoot bullet
         elif self.state == 3:

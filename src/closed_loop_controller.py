@@ -92,7 +92,7 @@ class control:
         # State 1: Resetting Values
         # Resetting Encocder and position values before running another 
         # step response
-        elif self.state == 2: 
+        elif self.state == 1: 
             self.position.clear()
             encoder.zero()
             self.state = 0
