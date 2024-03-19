@@ -1,10 +1,10 @@
-# ME 405 Term Project
+# ME 405 Term Project: Learn by Dueling
 
-## Team Edge Case (Kishor Natarajan, Candice Espitia, Vinayak Sharath)
+## Team Edge_Case (Kishor Natarajan, Candice Espitia, Vinayak Sharath)
 
 ## Introduction
 
-The goal of this term project was to design a fully autonomous heat-seeking foam-dart-firing turret to be used in duels against other devices of this nature (and their creators from the ME 405 lab sections). Required specifications included use of a motor with encoder to control a panning axis as well as the use of some other motor to control some other axis of rotation, trigger control, etc. The motor controlling the panning axis along with other devices including a provided thermal camera were to be run alongside cooperatively eachother using a scheduler in Python.
+The goal of this term project was to design a fully autonomous heat-seeking foam-dart-firing turret to be used in duels against other devices of this nature (and their creators from our ME 405 lab section). Required specifications included the use of a brushed DC motor with an encoder to control a panning axis as well as the use of some other motors to control other aspects of the design. The motor controlling the panning axis along with other devices (including a provided thermal camera) were to be run cooperatively with each other using a scheduler in MicroPython.
 
 ## Hardware Design
 
