@@ -12,7 +12,12 @@ The goal of this term project was to design a fully autonomous heat-seeking foam
 
 <img width="628" alt="CAD_General" src="https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/4d38798f-c207-4811-b94a-76a4e4a44f6a">
 
-The above image provides a detailed CAD rendering of our design. The panning axis would be driven by a Pittman/Ametek 24V Brush DC motor w/ planetary gear and encoder and have its speed reduced by a worm gear drivetrain. This specific worm gear reduction is the 041A2817 model from LiftMaster, providing at least a 1:30 speed reduction (the choice of using a worm gear will be reflected upon below). The firing mechanism is comprised of a flywheel cage (designed from a NERF Stryfe semi-auto blaster), two hobby dc motors, and a linear actuator to push the darts into the flywheels. The base, flywheel cage, and panning shaft were 3D printed using an Ender 3 V2 Printer. The linear actuator (50mm stroke) had an output force of 8.8lbs and moved at 0.6" per second and needed to be driven via H-bridge to control actuation direction. Below is a picture of the real turret.
+<img width="489" alt="CAD_Front" src="https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/31f14035-b6fe-439e-ab79-8e46c3b96f94">
+
+
+The above images provide a detailed CAD rendering of our design. The panning axis would be driven by a Pittman/Ametek 24V Brush DC motor w/ planetary gear and encoder and have its speed reduced by a worm gear drivetrain. This specific worm gear set is the 041A2817 model from LiftMaster, providing at least a 1:30 speed reduction (the choice of using a worm gear will be reflected upon below). The firing mechanism is comprised of a flywheel cage (designed from a NERF Stryfe semi-auto blaster) with crush flywheels, two hobby dc motors, and a linear actuator to push the darts into the flywheels. The base (designed with 5 degree incline to aim darts higher), flywheel cage, flywheels, driving shaft, and panning shaft were 3D printed using an Ender 3 V2 Printer. The linear actuator (1.96" stroke) had an output force of 8.8lbs and moved at 0.6" per second and needed to be driven via H-bridge to control actuation direction. All shafts were placed through 0.5" flange bearings and the gearbox was constructed from wooden slabs. Below is a picture of the real turret.
+
+![Geartrain_pic](https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/6333c84c-e6af-4f01-b4af-9c242e19443e)
 
 
 ### Electrical Hardware
