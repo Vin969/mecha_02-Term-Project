@@ -20,7 +20,7 @@
 #  for almost all of these files, the pins that the components utilize are
 #  initialized within their respective files.
 #
-#  @subsection Thermal Camera
+#  @subsection therm Thermal Camera
 #  @c thermal_camera.py is used to acquire/process data from the MLX90640   
 #  Thermal Infrared Camera. During the duel, the task repeatedly tries to
 #  obtain an image from the camera, using a function within @c mlx_cam.py . 
@@ -34,7 +34,7 @@
 #  structure, or Finite-State Machine (FSM), is shown below:
 #  \image html Sensor_FSM.jpg
 #
-#  @subsection Turret Driver
+#  @subsection tur Turret Driver
 #  @c turret_driver.py is used to control the panning axis motor for the system.
 #  Before the duel begins, the turret must be facing away from the target. Once
 #  the duel begins, the task rotates the turret 180 degrees clockwise to face
@@ -47,7 +47,7 @@
 #  actuator task to shoot the bullet. The FSM for this task is shown below:
 #  \image html Turret_FSM.jpg
 # 
-#  @subsection Actuator Driver
+#  @subsection act Actuator Driver
 #  @c actuator_flywheel.py is used to control the motion of the linear actuator.
 #  Initially (when the duel begins), the actuator is idle for arbitrary period
 #  of time (around 1-2 seconds). After this idle state, the linear actuator is
@@ -62,7 +62,7 @@
 #  shown below:
 #  \image html Actuator_FSM.jpg   
 #    
-#  @subsection Motor Controller File
+#  @subsection motor_cont Motor Controller File
 #  @c closed_loop_controller.py is used to run a step-response (Proportional 
 #  controller) for a given motor. This file is primarily used by the 
 #  @c turret_driver.py task. This file was taken from a previous lab assignment
@@ -79,11 +79,11 @@
 #  used to make this system run. One of these files has been modified slightly 
 #  for the purposes of this project
 # 
-#  @subsection Imported Code
+#  @subsection imp Imported Code
 #  @c cotask.py and @c task_share.py were imported to use for this project.
 #  These files are unmodified.
 #
-#  @subsection Modified Code
+#  @subsection mod Modified Code
 #  @c mlx_cam.py has largely been unchanged from its previous state, except for
 #  the function @c get_csv . Originally, after running this function, it would
 #  print a 32x24 pixel grid of numbers ranging from 0-99 in a CSV style format,
