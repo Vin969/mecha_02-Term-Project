@@ -27,7 +27,10 @@
 #  After receiving an image, the task will then process that image to obtain
 #  a 'degrees from target' reading to then send to the task that controls the
 #  panning axis. However, this degree will only be sent to that task after 5
-#  seconds. While testing this functionality, we noticed that the initial 
+#  seconds. The logic for converting the degrees for the turret is shown below:
+#  \image html Degree_logic.jpg
+#  
+#  While testing this functionality, we noticed that the initial 
 #  degree from the sensor is almost always inaccurate when compared to
 #  where the target actually is. That is why the code is set up in a way to 
 #  continuously read data from the sensor until 5 seconds is up. The code
