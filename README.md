@@ -22,7 +22,9 @@ The above images provide a detailed CAD rendering of our design. The panning axi
 
 ### Electrical Hardware
 
-(Candice)
+<img alt="WiringDiagram" src="https://github.com/dijonm53/mecha_02-Term-Project/blob/6250bb24f4d4b3dee401efe956c9abd81eba4704/WiringDiagram.png">
+
+The schematic depicting the wiring configuration of our system is shown in the figure above. We employed a single bench power supply linked to an emergency stop, which was then connected to a breadboard. The breadboard served as the central point for interconnecting various components of our system, including the flywheel, thermal camera, DC motor with encoder, and linear actuator. To properly distribute the power supply and optimize the performance of the flywheel, we arranged the connections to flywheel and the rest of the system in parallel. This is due to preliminary testing showing the flywheel operates best at current levels around 2 A, contrary to the optimum current of the rest of the system of about 0.5A. The DC motor responsible for the panning axis is wired to H-bridge motor B, while the linear actuator is connected to H-bridge motor A. On the shoe, notably, we interfaced with pins: B6 and B7 for the DC motor encoder channels, and B8 and B9 for the SCL and SDA thermal camera signals. 
 
 ## Software Design
 
@@ -62,4 +64,12 @@ Even though the test runs were a success in our eyes, during the actual duels, o
 
 ## Takeaways and Recommendations
 
-(Candice)
+Our project did a great job mechanically; in that during testing and actual dueling we never experienced mechanical failures. However, given more time there are several improvements we would make to our design.  
+
+As explained in the previous section, our thermal sensor seemed to work well during testing but failed to perform properly during dueling. This is because we did not apply any additional filtering to the thermal sensor data besides the required filtering of the thermal sensor data for the highest average temperature column. Since our software design has the thermal sensor continually collecting highest average temperature column data for 5s; additional filtering could be averaging out the last few results instead of taking the final value.  
+
+Furthermore, we struggled to properly utilize a MOSFET for controlling our flywheels. This resulted in our flywheel being on from the moment the power supply was on. Which made runs noisy, but otherwise did not majorly affect functionality. Nonetheless, a MOSFET should be used for this flywheel design.  
+
+Although earlier it was stated that our mechanical design was reliable, it was quite slow to pan compared to other teams. This is due to the worm gear having a very high gear ratio and therefore decreasing the output motor speed too much. The worm gear allowed for our design to be more compact and have more torque potential; but helical spur gears would've worked much better for this application.  
+
+In trying to make our design more time efficient we found it to be useful to “prime” the linear actuator during the initial turn around, i.e. let it extend just enough that the bullet is about to enter the flywheels. However, in doing so we used a timer method of stopping the linear actuator (the appropriate time increment was found during the experimental testing of the system). In general, good software design for the scheduler is to eliminate time based coding; since it is known to cause timing issues.  Better practice would be to utilize a limit switch to signal when the linear actuator should end its priming state. 
