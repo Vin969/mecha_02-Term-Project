@@ -12,19 +12,27 @@ The goal of this term project was to design a fully autonomous heat-seeking foam
 
 <img width="628" alt="CAD_General" src="https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/4d38798f-c207-4811-b94a-76a4e4a44f6a">
 
+**Figure 1:** Isometric CAD view of the system
+
 <img width="489" alt="CAD_Front" src="https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/31f14035-b6fe-439e-ab79-8e46c3b96f94">
+
+**Figure 2:** Front CAD view of the system
 
 
 The above images provide a detailed CAD rendering of our design. The panning axis is driven by a Pittman/Ametek 24V Brushed DC motor w/ Encoder and has its speed reduced by a worm gear drivetrain. This specific worm gear set is a 041A2817 model from LiftMaster, providing at least a 1:30 speed reduction (selected since initial calculations suggested at least a 1:27 gear ratio to support the weight of the original design). The firing mechanism is comprised of a flywheel cage (designed from a NERF<sup>TM</sup> Stryfe semi-auto blaster) with crush flywheels, two hobby DC motors to spin the wheels, and a linear actuator to push the darts into the mechanism. The base (designed with a 5-degree incline to shoot darts further), flywheel cage, flywheels, driving shaft, and panning shaft were 3D printed using an Ender 3 V2 Printer. The linear actuator (1.96" stroke) had an output force of 8.8 lbf and moved at 0.6" per second. This was driven via an H-bridge on the STM32L476RG (Nucleo) to control the actuation direction. All shafts were placed through 0.5" flange bearings and the gearbox was constructed from wooden slabs. Shown below is a picture of the final turret.
 
 ![Geartrain_pic](https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/6333c84c-e6af-4f01-b4af-9c242e19443e)
 
+**Figure 3:** Isometric Picture of Final System
+
 
 ### Electrical Hardware
 
 <img alt="WiringDiagram" src="https://github.com/dijonm53/mecha_02-Term-Project/blob/6250bb24f4d4b3dee401efe956c9abd81eba4704/WiringDiagram.png">
 
-The schematic depicting the wiring configuration of our system is shown in the figure above. We employed a single bench power supply linked to an emergency stop, which was then connected to a breadboard. The breadboard served as the central point for interconnecting various components of our system, including the flywheel, thermal camera, DC motor with encoder, and linear actuator. To properly distribute the power supply and optimize the performance of the flywheel, we arranged the connections to flywheel and the rest of the system in parallel. This is due to preliminary testing showing the flywheel operates best at current levels around 2 A, contrary to the optimum current of the rest of the system of about 0.5A. The DC motor responsible for the panning axis is wired to H-bridge motor B, while the linear actuator is connected to H-bridge motor A. On the shoe, notably, we interfaced with pins: B6 and B7 for the DC motor encoder channels, and B8 and B9 for the SCL and SDA thermal camera signals. 
+**Figure 4:** Electrical Wiring Diagram
+
+The schematic depicting the wiring configuration of our system is shown in the figure above. We employed a single bench power supply linked to an emergency stop, which was then connected to a breadboard. The breadboard served as the central point for interconnecting various components of our system, including the flywheel, thermal camera, DC motor with encoder, and linear actuator. To properly distribute the power supply and optimize the performance of the flywheel, we arranged the connections to the flywheel and the rest of the system in parallel. This is due to preliminary testing showing the flywheel operates best at current levels at around 2 A, contrary to the optimum current of the rest of the system of about 0.5A. The DC motor responsible for the panning axis is wired to H-bridge Port B, while the linear actuator is connected to H-bridge Port A. On the shoe, notably, we interfaced with pins B6/B7 for the DC motor encoder channels, and B8/B9 for the SCL and SDA thermal camera signals, respectively. 
 
 ## Software Design
 
