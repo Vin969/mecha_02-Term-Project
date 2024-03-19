@@ -4,13 +4,16 @@
 
 ## Introduction
 
-(Vin)
+The goal of this term project was to design a fully autonomous heat-seeking foam-dart-firing turret to be used in duels against other devices of this nature (and their creators from the ME 405 lab sections). Required specifications included use of a motor with encoder to control a panning axis as well as the use of some other motor to control some other axis of rotation, trigger control, etc. The motor controlling the panning axis along with other devices including a provided thermal camera were to be run alongside cooperatively eachother using a scheduler in Python.
 
 ## Hardware Design
 
 ### Mechanical Hardware
 
-(Vin)
+<img width="628" alt="CAD_General" src="https://github.com/dijonm53/mecha_02-Term-Project/assets/156120325/4d38798f-c207-4811-b94a-76a4e4a44f6a">
+
+The above image provides a detailed CAD rendering of our design. The panning axis would be driven by a Pittman/Ametek 24V Brush DC motor w/ planetary gear and encoder and have its speed reduced by a worm gear drivetrain. This specific worm gear reduction is the 041A2817 model from LiftMaster, providing at least a 1:30 speed reduction (the choice of using a worm gear will be reflected upon below). The firing mechanism is comprised of a flywheel cage (designed from a NERF Stryfe semi-auto blaster), two hobby dc motors, and a linear actuator to push the darts into the flywheels. The base, flywheel cage, and panning shaft were 3D printed using an Ender 3 V2 Printer. The linear actuator (50mm stroke) had an output force of 8.8lbs and moved at 0.6" per second and needed to be driven via H-bridge to control actuation direction. Below is a picture of the real turret.
+
 
 ### Electrical Hardware
 
