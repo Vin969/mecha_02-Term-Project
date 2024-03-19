@@ -46,7 +46,7 @@ ability to push the bullet into the flywheel, and the time it would take to push
 
 Once these functions were all tested, we then implemented the scheduler and placed all the tasks in. After some 
 troubleshooting, we then performed 6 runs of the program to test the reliability of the system. 2 runs where the target 
-is to the left of the sensor, 2 runs directly in the center, and 2 runs to the right of the sensor. Out of the 6 runs, 
+is to the left of the sensor, 2 runs directly in front of the center, and 2 runs to the right of the sensor. Out of the 6 runs, 
 the turret was successfully able to shoot the target 5 times. For the failed attempt, the turret rotated in the 
 opposite direction and shot; meaning that there was something wrong with the sensor reading.
 
