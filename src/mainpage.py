@@ -4,8 +4,8 @@
 #
 #  @section soft_des Software Design
 #  This project consists of files used to control the turret system for team
-#  Edge_Case's Learn by Dueling project. This code runs on an STM32L476RG    
-#  microcontroller, where various electrical components (Panning axis motor,   
+#  Edge_Case's Learn by Dueling project. This code runs on an STM32L476RG
+#  microcontroller, where various electrical components (Panning axis motor,
 #  MLX90640 Thermal Infrared Camera, and Linear Actuator) are controlled.  
 #  The software utilizes a time-based scheduler to run three tasks  
 #  (@c turret_driver.py , @c thermal_camera.py , and @c actuator_flywheel.py) 
