@@ -62,11 +62,7 @@ this until we were confident that the turret would aim at the target.
 For the Linear Actuator, since its motion is time-based (not encoder-based), the main functionality we tested was its 
 ability to push the bullet into the flywheel, and the time it would take to push the bullet in without shooting.
 
-Once these functions were all tested, we then implemented the scheduler and placed all the tasks in. After some 
-troubleshooting, we then performed 6 runs of the program to test the reliability of the system. 2 runs where the target 
-is to the left of the sensor, 2 runs directly in front of the center, and 2 runs to the right of the sensor. Out of the 6 runs, 
-the turret was successfully able to shoot the target 5 times. For the failed attempt, the turret rotated in the 
-opposite direction and shot; meaning that there was something wrong with the sensor reading.
+Once these functions were all tested separately, we then implemented the scheduler and placed all the tasks in. After some troubleshooting, we then performed 6 runs of the program to test the reliability of the system. 2 runs where the target was to the left of the sensor, 2 runs directly in front of the center, and 2 runs to the right of the sensor. Out of the 6 runs, the turret was successfully able to shoot the target 5 times. For the failed attempt, the turret rotated in the opposite direction and shot; meaning that there was something wrong with the sensor reading.
 
 Even though the test runs were a success in our eyes, during the actual duels, our turret did not perform well. Out of the 6 total runs we did for the duels, we were only able to shoot the target once. During these failed attempts, the system did one or more of the following: Aimed at the target but didn't shoot, turned in the wrong direction, and/or the flywheel changed the trajectory of the bullet. These issues will be discussed in detail in the following section.
 
