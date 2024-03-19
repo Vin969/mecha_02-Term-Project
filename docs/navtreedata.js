@@ -27,14 +27,14 @@ var NAVTREE =
   [ "Team mecha_02 (Edge_Case) Term Project", "index.html", [
     [ "Software Design", "index.html#soft_des", null ],
     [ "Original Code", "index.html#code", [
-      [ "Camera", "index.html#Thermal", null ],
-      [ "Driver", "index.html#Turret", null ],
-      [ "Driver", "index.html#Actuator", null ],
-      [ "Controller File", "index.html#Motor", null ]
+      [ "Thermal Camera", "index.html#therm", null ],
+      [ "Turret Driver", "index.html#tur", null ],
+      [ "Actuator Driver", "index.html#act", null ],
+      [ "Motor Controller File", "index.html#motor_cont", null ]
     ] ],
     [ "Imported/Modified Code", "index.html#imp_code", [
-      [ "Code", "index.html#Imported", null ],
-      [ "Code", "index.html#Modified", null ]
+      [ "Imported Code", "index.html#imp", null ],
+      [ "Modified Code", "index.html#mod", null ]
     ] ],
     [ "Other Code", "index.html#oth_code", null ],
     [ "Task Diagram", "index.html#tsk_dia", null ],
