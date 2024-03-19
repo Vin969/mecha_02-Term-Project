@@ -2,6 +2,7 @@ var namespaces_dup =
 [
     [ "actuator_flywheel", "namespaceactuator__flywheel.html", "namespaceactuator__flywheel" ],
     [ "closed_loop_controller", "namespaceclosed__loop__controller.html", "namespaceclosed__loop__controller" ],
+    [ "cotask", "namespacecotask.html", "namespacecotask" ],
     [ "encoder_reader", "namespaceencoder__reader.html", "namespaceencoder__reader" ],
     [ "main", "namespacemain.html", [
       [ "actuator_task", "namespacemain.html#a0710d5d8cd8ab59797a93524e154ae8b", null ],
@@ -23,6 +24,7 @@ var namespaces_dup =
       [ "xlabel", "namespacestep__control.html#a25cb064e0ea8bc474844a0d17d65608f", null ],
       [ "ylabel", "namespacestep__control.html#acdf86a46bc21110b7fb78d438d0ec91a", null ]
     ] ],
+    [ "task_share", "namespacetask__share.html", "namespacetask__share" ],
     [ "thermal_camera", "namespacethermal__camera.html", "namespacethermal__camera" ],
     [ "turret_driver", "namespaceturret__driver.html", "namespaceturret__driver" ]
 ];

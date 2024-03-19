@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['test_5fmlx_5fcam_0',['test_MLX_cam',['../classthermal__camera_1_1thermal__cam.html#a6aecfaf370e76723f140f035dab6abf0',1,'thermal_camera.thermal_cam.test_MLX_cam()'],['../namespacemlx__cam.html#a412d461b290a706127bf8dd299b0635f',1,'mlx_cam.test_MLX_cam()']]],
-  ['tk_5fmatplot_1',['tk_matplot',['../namespacestep__control.html#a4dce3f06abe2a12594b404518f9c0bee',1,'step_control']]],
-  ['turret_5ftask_2',['turret_task',['../namespacemain.html#a546f90aa2281e3adf8fa1f8f79e1242f',1,'main']]]
+  ['read_0',['read',['../classencoder__reader_1_1encoder.html#a62a0ba0fdc3d0b70b7e4e21ea91916ca',1,'encoder_reader::encoder']]],
+  ['ready_1',['ready',['../classcotask_1_1_task.html#a6102bc35d7cb1ce292abc85d4ddc23e1',1,'cotask::Task']]],
+  ['reset_5fprofile_2',['reset_profile',['../classcotask_1_1_task.html#a0fd4093dcd01cd1d05ace187956340cf',1,'cotask::Task']]],
+  ['rr_5fsched_3',['rr_sched',['../classcotask_1_1_task_list.html#aa048a6b12954d03b8fbf78dff7ace907',1,'cotask::TaskList']]],
+  ['run_4',['run',['../classclosed__loop__controller_1_1control.html#aa19b3ca17d4a80085fff00f9e937ae23',1,'closed_loop_controller::control']]]
 ];

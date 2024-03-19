@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['therm_0',['therm',['../namespacethermal__camera.html#a291953fda4b845fe221b5e4258ef0492',1,'thermal_camera']]],
-  ['tim_1',['tim',['../namespaceclosed__loop__controller.html#a8f5b34a1a7245ed7bfe3adf99d27ee0d',1,'closed_loop_controller']]],
-  ['timer_2',['timer',['../classencoder__reader_1_1encoder.html#a3bc66c2ea8060f6adcf2f35968214a23',1,'encoder_reader.encoder.timer'],['../classmotor__driver_1_1_motor_driver.html#ac6bc14e804bf9501e06ec61d072cd8a0',1,'motor_driver.MotorDriver.timer'],['../namespaceclosed__loop__controller.html#a93319c7b609dd6eafcb6922e394777ac',1,'closed_loop_controller.timer']]],
-  ['title_3',['title',['../namespacestep__control.html#a82ffa82b22140836e40c5a5fd9a608fb',1,'step_control']]],
-  ['tur_4',['tur',['../namespaceturret__driver.html#ad8ff312fa5c21fe641b9a0a04b4b7c75',1,'turret_driver']]],
-  ['tur_5fcon_5',['tur_con',['../classturret__driver_1_1turret__driver.html#a2b5bdf64e83c57f84f09ad50649359c5',1,'turret_driver::turret_driver']]],
-  ['tur_5fenc_6',['tur_enc',['../classturret__driver_1_1turret__driver.html#acfa2ee703c40502af057cf841cf515bc',1,'turret_driver::turret_driver']]],
-  ['turret_7',['turret',['../classturret__driver_1_1turret__driver.html#acd6042bf7ca0d396a931daf3b1140fba',1,'turret_driver::turret_driver']]],
-  ['turret_5ft_8',['turret_t',['../namespacemain.html#a9d5b4edff23a0472408e3da7681e5536',1,'main']]]
+  ['s1_0',['s1',['../namespacemain.html#a35d4b10e320a80d92e52580abd44578a',1,'main']]],
+  ['s2_1',['s2',['../namespacemain.html#a6a665192b9db2b4123bdb19523477e4a',1,'main']]],
+  ['sensor_5ft_2',['sensor_t',['../namespacemain.html#a07be40811a9f11022c3c0a727b56b552',1,'main']]],
+  ['ser_5fnum_3',['ser_num',['../classtask__share_1_1_queue.html#a6f9d87b116eb16dba0867d3746af9f5f',1,'task_share.Queue.ser_num'],['../classtask__share_1_1_share.html#a2e8df029af46fbfd44ef0c2e7e8c7af6',1,'task_share.Share.ser_num']]],
+  ['setpoint_4',['setpoint',['../classclosed__loop__controller_1_1control.html#a252368e41a65b06264b8c2f93997e40f',1,'closed_loop_controller::control']]],
+  ['share_5flist_5',['share_list',['../namespacetask__share.html#a75818e5b662453e3723d0f234c85e519',1,'task_share']]],
+  ['state_6',['state',['../classactuator__flywheel_1_1actuator__driver.html#ac5757eca4425ec1c855ea4a04db75f0c',1,'actuator_flywheel.actuator_driver.state'],['../classclosed__loop__controller_1_1control.html#a8a1131e2a7cfc54d9a716181bd0986b9',1,'closed_loop_controller.control.state'],['../classthermal__camera_1_1thermal__cam.html#a17617b0983846c7ac012b2211b53a9aa',1,'thermal_camera.thermal_cam.state'],['../classturret__driver_1_1turret__driver.html#a4247c43452fa18a6832cba2c88b134a1',1,'turret_driver.turret_driver.state']]],
+  ['steady_5fcounter_7',['steady_counter',['../classclosed__loop__controller_1_1control.html#a2ef35aa6a0a7bc6220dca2ce95f6b4ab',1,'closed_loop_controller::control']]]
 ];

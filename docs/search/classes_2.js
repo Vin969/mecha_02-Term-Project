@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['encoder_0',['encoder',['../classencoder__reader_1_1encoder.html',1,'encoder_reader']]]
+  ['control_0',['control',['../classclosed__loop__controller_1_1control.html',1,'closed_loop_controller']]]
 ];

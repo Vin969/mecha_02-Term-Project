@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['find_5fdeg_0',['find_deg',['../classthermal__camera_1_1thermal__cam.html#abef602df92649bf77a51fd4676389645',1,'thermal_camera::thermal_cam']]]
+  ['empty_0',['empty',['../classtask__share_1_1_queue.html#afee296230d2346df88ffb4b2b22208f3',1,'task_share::Queue']]]
 ];

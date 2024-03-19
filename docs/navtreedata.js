@@ -49,6 +49,7 @@ var NAVTREE =
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
@@ -64,7 +65,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "actuator__flywheel_8py.html",
-"namespaces.html"
+"classthermal__camera_1_1thermal__cam.html#aa2cadd41ffda0b1f7c01f1251b8b3852"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['gain_0',['gain',['../classclosed__loop__controller_1_1control.html#a50b3e08b4a5ebe8f31bce163e31c152d',1,'closed_loop_controller.control.gain'],['../classturret__driver_1_1turret__driver.html#a8d58a148310812d50fa05e7a00341243',1,'turret_driver.turret_driver.gain']]],
-  ['get_5fcsv_1',['get_csv',['../classmlx__cam_1_1_m_l_x___cam.html#aeafb35245952d8a9eb2b1fd401126dfb',1,'mlx_cam::MLX_Cam']]],
-  ['get_5fimage_2',['get_image',['../classmlx__cam_1_1_m_l_x___cam.html#aa1343bb823dc68d1e017bd63dd393586',1,'mlx_cam::MLX_Cam']]],
-  ['get_5fimage_5fnonblocking_3',['get_image_nonblocking',['../classmlx__cam_1_1_m_l_x___cam.html#a36e29b74253348769b907e2485cc431e',1,'mlx_cam::MLX_Cam']]]
+  ['file_0',['Controller File',['../index.html#Motor',1,'']]],
+  ['find_5fdeg_1',['find_deg',['../classthermal__camera_1_1thermal__cam.html#abef602df92649bf77a51fd4676389645',1,'thermal_camera::thermal_cam']]],
+  ['full_2',['full',['../classtask__share_1_1_queue.html#a72be18f8267b2977117eedf15ad896c8',1,'task_share::Queue']]]
 ];

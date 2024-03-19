@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['thermal_5fcam_0',['thermal_cam',['../classthermal__camera_1_1thermal__cam.html',1,'thermal_camera']]],
-  ['turret_5fdriver_1',['turret_driver',['../classturret__driver_1_1turret__driver.html',1,'turret_driver']]]
+  ['mlx_5fcam_0',['MLX_Cam',['../classmlx__cam_1_1_m_l_x___cam.html',1,'mlx_cam']]],
+  ['motordriver_1',['MotorDriver',['../classmotor__driver_1_1_motor_driver.html',1,'motor_driver']]]
 ];

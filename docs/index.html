@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Team mecha_02 (Edge_Case) Term Project<span id="projectnumber">&#160;1.0</span>
+   <div id="projectname">Team mecha_02 (Edge_Case) Term Project
    </div>
    <div id="projectbrief">This project contains files used for Edge_Case&#39;s ME 405 Term Project</div>
   </td>
@@ -97,9 +97,7 @@ $(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="soft_des"></a>
 Software Design</h1>
-<p>This project consists of files used to control the turret system for team Edge_Case's Learn by Dueling project. This code runs on an STM32L476RG <br  />
- microcontroller, where various electrical components (Panning axis motor, <br  />
- MLX90640 Thermal Infrared Camera, and Linear Actuator) are controlled. <br  />
+<p>This project consists of files used to control the turret system for team Edge_Case's Learn by Dueling project. This code runs on an STM32L476RG microcontroller, where various electrical components (Panning axis motor, MLX90640 Thermal Infrared Camera, and Linear Actuator) are controlled. <br  />
  The software utilizes a time-based scheduler to run three tasks <br  />
  (<code><a class="el" href="turret__driver_8py.html" title="This file contains code that controls the panning axis motor.">turret_driver.py</a></code> , <code><a class="el" href="thermal__camera_8py.html" title="This file contains code that initializes, receives, processes, and sends thermal camera data to the r...">thermal_camera.py</a></code> , and <code><a class="el" href="actuator__flywheel_8py.html" title="This file contains code that controls the linear actuator and flywheel system present in the design.">actuator_flywheel.py</a></code>) cooperatively of each other. Their functions and code design are described below. To learn more about the rest of the system (Mechanical and Electrical Hardware), along with its outcomes, please refer to the main GitHub page: <a href="https://github.com/dijonm53/mecha_02-Term-Project">https://github.com/dijonm53/mecha_02-Term-Project</a></p>
 <h1><a class="anchor" id="code"></a>
@@ -133,7 +131,7 @@ Imported/Modified Code</h1>
 <p>Here are the files imported from a library (made by the instructor) that was used to make this system run. One of these files has been modified slightly for the purposes of this project</p>
 <h2><a class="anchor" id="Imported"></a>
 Code</h2>
-<p><code>cotask.py</code> and <code>task_share.py</code> were imported to use for this project. These files are unmodified.</p>
+<p><code><a class="el" href="cotask_8py.html" title="This file contains classes to run cooperatively scheduled tasks in a multitasking system.">cotask.py</a></code> and <code><a class="el" href="task__share_8py.html" title="This file contains classes which allow tasks to share data without the risk of data corruption by int...">task_share.py</a></code> were imported to use for this project. These files are unmodified.</p>
 <h2><a class="anchor" id="Modified"></a>
 Code</h2>
 <p><code><a class="el" href="mlx__cam_8py.html" title="RAW VERSION This version uses a stripped down MLX90640 driver which produces only raw data,...">mlx_cam.py</a></code> has largely been unchanged from its previous state, except for the function <code>get_csv</code> . Originally, after running this function, it would print a 32x24 pixel grid of numbers ranging from 0-99 in a CSV style format, representative of what the camera sees. The higher the number, the higher the temperature. Now, the function has been modified to return the column in that pixel grid representative of the highest total. If a column of values has the highest total, it is likely that the target is in that area.</p>
